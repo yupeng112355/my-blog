@@ -18,7 +18,194 @@
 
                 <aside id="featured" class="body">
                     <article>
-                        <h1 class="entry-title"><a href="/wo-de-di-yi-pian-wen-zhang.html">我的第一篇文章</a></h1>
+                        <h1 class="entry-title"><a href="/wo-de-di-er-pian-wen-zhang.html">我的第二篇文章</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2024-10-24T00:00:00+08:00">
+                Published: 周四 24 十月 2024
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="/author/yu-peng.html">余鹏</a>
+                </address>
+        <p>In <a href="/category/xue-xi-zong-jie.html">学习总结</a>.</p>
+<p>tags: <a href="/tag/bo-ke-xue-xi.html">博客 学习</a> </p>        
+</footer><!-- /.post-info --><h1>详细步骤</h1>
+<h3>部署到 GitHub Pages 的完整步骤和含义</h3>
+<h3>前提：确保你已安装 Git 并配置好 GitHub 账号</h3>
+<p>在进行以下步骤之前，请确保本地已安装 Git，并配置了 GitHub 账号（例如，生成 SSH 密钥并添加到 GitHub 账号中）。</p>
+<hr>
+<h3>步骤 1：在 GitHub 上创建仓库</h3>
+<p><strong>含义</strong>：我们需要一个远程仓库来存放生成的静态网站文件。这个仓库就是我们的网站存储位置。</p>
+<ol>
+<li>登录 GitHub，点击右上角的 “<strong>+</strong>” 按钮，选择 “<strong>New repository</strong>”。</li>
+<li>在 <strong>Repository name</strong> 中填写仓库名称：<ul>
+<li><strong>个人主页</strong>：仓库名称应为 <code>yourusername.github.io</code>，例如 <code>yupeng112355.github.io</code>。此格式用于个人主页站点。</li>
+<li><strong>项目站点</strong>：仓库可以命名为其他名称（如 <code>my-blog</code>），这样会生成一个项目子路径站点，访问地址为 <code>https://yourusername.github.io/my-blog/</code>。</li>
+</ul>
+</li>
+<li>设置为 <strong>Public</strong>。</li>
+<li>点击 <strong>Create repository</strong> 创建仓库。</li>
+</ol>
+<hr>
+<h3>步骤 2：生成静态网站文件</h3>
+<p><strong>含义</strong>：Pelican 将 Markdown 内容转换成 HTML 静态文件，这些文件可以直接发布到 GitHub Pages。</p>
+<ol>
+<li>
+<p>在本地 Pelican 项目目录下，运行以下命令来生成静态文件：</p>
+<p>```bash
+bash
+复制代码
+pelican content</p>
+<p>```</p>
+<ul>
+<li><code>pelican content</code> 命令会读取 <code>content</code> 文件夹中的内容文件，将它们转换为静态的 HTML 文件，并将这些文件存放在 <code>output</code> 文件夹中。</li>
+<li><code>output</code> 文件夹中生成的文件包含了网站的所有静态资源（HTML、CSS、图片等），这些文件可以直接部署到 GitHub Pages。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3>步骤 3：在 <code>output</code> 文件夹中初始化 Git 仓库并添加远程仓库</h3>
+<p><strong>含义</strong>：我们将 <code>output</code> 文件夹中的内容作为一个独立的 Git 仓库，并将它链接到 GitHub 上的远程仓库，以便将生成的静态文件推送到 GitHub。</p>
+<ol>
+<li>
+<p>进入 <code>output</code> 文件夹：</p>
+<p>```bash
+bash
+复制代码
+cd output</p>
+<p>```</p>
+</li>
+<li>
+<p>初始化一个新的 Git 仓库：</p>
+<p>```bash
+bash
+复制代码
+git init</p>
+<p>```</p>
+<ul>
+<li>这个命令会在 <code>output</code> 文件夹中创建一个新的 Git 仓库，用于跟踪静态文件的更改。</li>
+<li>添加 GitHub 仓库作为远程仓库：</li>
+</ul>
+<p>```bash
+bash
+复制代码
+git remote add origin https://github.com/yourusername/yourusername.github.io.git</p>
+<p>```</p>
+<ul>
+<li><code>git remote add origin</code> 命令将远程仓库链接到本地仓库，<code>origin</code> 是这个远程仓库的别名。</li>
+<li>请将 <code>yourusername</code> 替换为你的 GitHub 用户名。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3>步骤 4：添加、提交并推送文件到 GitHub 仓库</h3>
+<p><strong>含义</strong>：我们将生成的静态文件提交到 Git，然后推送到 GitHub 上的远程仓库，这样 GitHub Pages 就能部署并展示这些文件。</p>
+<ol>
+<li>
+<p>添加所有文件到 Git 的暂存区：</p>
+<p>```bash
+bash
+复制代码
+git add .</p>
+<p>```</p>
+<ul>
+<li><code>git add .</code> 会将所有文件添加到暂存区，为提交做好准备。</li>
+<li>提交文件到本地 Git 仓库：</li>
+</ul>
+<p>```bash
+bash
+复制代码
+git commit -m "Initial commit"</p>
+<p>```</p>
+<ul>
+<li><code>git commit -m "Initial commit"</code> 会将所有添加的文件提交到本地仓库，并附上提交信息（<code>"Initial commit"</code> 表示首次提交）。</li>
+<li>推送文件到 GitHub 仓库：</li>
+</ul>
+<p>```bash
+bash
+复制代码
+git push -u origin master</p>
+<p>```</p>
+<ul>
+<li><code>git push -u origin master</code> 将 <code>master</code> 分支的文件推送到远程仓库的 <code>master</code> 分支。</li>
+<li><strong>推送成功后</strong>，GitHub 仓库中的文件会与 <code>output</code> 文件夹中的文件保持同步，GitHub Pages 会自动部署这些内容。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3>步骤 5：配置 GitHub Pages</h3>
+<p><strong>含义</strong>：我们在 GitHub 仓库设置中启用 GitHub Pages，使其自动部署并展示仓库中的静态文件。</p>
+<ol>
+<li>进入 GitHub 仓库页面，点击 <strong>Settings</strong>。</li>
+<li>在 <strong>Settings</strong> 页面中，找到 <strong>Pages</strong> 部分。</li>
+<li>在 <strong>Source</strong> 下拉菜单中，选择 <code>master</code> 分支，并选择 <strong>/（root）</strong> 作为发布路径。</li>
+<li>点击 <strong>Save</strong>，保存设置。<ul>
+<li>配置完成后，GitHub 会显示你的站点 URL。</li>
+<li>如果仓库名称是 <code>yourusername.github.io</code>，则 URL 会是 <code>https://yourusername.github.io</code>。</li>
+<li>如果仓库名称是 <code>my-blog</code>，则 URL 会是 <code>https://yourusername.github.io/my-blog/</code>。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3>步骤 6：等待 GitHub Pages 部署并检查站点</h3>
+<p><strong>含义</strong>：GitHub Pages 部署可能需要几分钟的时间，部署完成后可以通过提供的 URL 访问站点。</p>
+<ol>
+<li><strong>等待 GitHub Pages 部署</strong>：部署通常需要几分钟时间，稍等片刻。</li>
+<li><strong>访问站点</strong>：在浏览器中输入提供的 URL 访问你的 GitHub Pages 站点。</li>
+</ol>
+<hr>
+<h3>步骤 7：更新内容并重新部署</h3>
+<p><strong>含义</strong>：每次修改内容后，需要重新生成静态文件并推送到 GitHub，使 GitHub Pages 更新网站内容。</p>
+<ol>
+<li>
+<p>在项目根目录中重新生成静态文件：</p>
+<p>```bash
+bash
+复制代码
+pelican content</p>
+<p>```</p>
+</li>
+<li>
+<p>进入 <code>output</code> 文件夹，提交并推送更新：</p>
+<p>```bash
+bash
+复制代码
+cd output
+git add .
+git commit -m "Update site content"
+git push origin master</p>
+<p>```</p>
+<ul>
+<li>每次推送后，GitHub Pages 会自动更新网站内容。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3>总结</h3>
+<p>以上步骤实现了将 Pelican 静态网站生成器的内容发布到 GitHub Pages 上：</p>
+<ol>
+<li><strong>创建 GitHub 仓库</strong> - 存储静态网站文件。</li>
+<li><strong>生成静态网站文件</strong> - 使用 Pelican 将 Markdown 文件转换为 HTML 文件。</li>
+<li><strong>初始化 Git 并添加远程仓库</strong> - 在 <code>output</code> 文件夹中创建独立的 Git 仓库。</li>
+<li><strong>添加、提交并推送文件</strong> - 将静态文件推送到 GitHub 以便部署。</li>
+<li><strong>配置 GitHub Pages</strong> - 启用 GitHub Pages 并选择发布路径。</li>
+<li><strong>等待并访问站点</strong> - GitHub Pages 部署成功后可以访问 URL。</li>
+<li><strong>更新内容并重新部署</strong> - 每次更新内容后需要重新生成和推送。</li>
+</ol>
+<p>完成这些步骤后，GitHub Pages 应该会成功托管并展示你的 Pelican 博客。如果仍有问题，请告诉我具体的步骤和错误提示，我会帮助你进一步排查。</p>                    </article>
+                </aside><!-- /#featured -->
+                    <section id="content" class="body">
+                        <h1>Other articles</h1>
+                        <hr />
+                        <ol id="posts-list" class="hfeed">
+
+                <li><article class="hentry">
+                    <header>
+                        <h1><a href="/wo-de-di-yi-pian-wen-zhang.html" rel="bookmark"
+                               title="Permalink to 我的第一篇文章">我的第一篇文章</a></h1>
+                    </header>
+
+                    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2024-10-24T00:00:00+08:00">
                 Published: 周四 24 十月 2024
@@ -29,31 +216,12 @@
                 </address>
         <p>In <a href="/category/xue-xi-zong-jie.html">学习总结</a>.</p>
 <p>tags: <a href="/tag/python.html">Python</a> <a href="/tag/xue-xi.html">学习</a> </p>        
-</footer><!-- /.post-info --><p>这是正文内容，这里可以记录你的学习过程或个人想法。
-学：首先要完整的读一遍，读不懂都没关系，至少要掌握他说了什么。然后是读第二遍，在此基础上</p>
-<p>2.练</p>
-<p>3.用</p>
-<p>4.造</p>
-<ul>
-<li>面对 “过早引用” 过多的世界，你有你的应对方式</li>
-<li>你会 “囫囵吞枣”，你会 “重复重复再重复”，你深刻理解 “读书百遍其义自见”</li>
-<li>以后你最擅长的技能之一就是拆解拆解再拆解</li>
-<li>你用你的拆解手艺把所有遇到的难点都拆解成能搞定的小任务</li>
-<li>自学任何一门手艺之前你都不会去问 “有什么用”，而是清楚地知道，无论是什么只要学会了就只能也必然天天去用</li>
-<li>你没有刚需幻觉，你也没有时间幻觉，你更没有困难幻觉，反正你就是相对更清醒</li>
-<li>不管你新学什么手艺，你都知道只要假以时日你就肯定能做好，因为所有的手艺精湛，靠的只不过是充足的预算</li>
-<li>你知道如何不浪费生命，因为只要不是在刻意练习、不是在刻意思考，那就是在“混时间”</li>
-<li>你总是在琢磨你能做个什么新作品</li>
-<li>你刻意地使用你的作品作为有效社交工具，也用作品去过滤无效社交</li>
-<li>你乐于分享，乐于阅读也更乐于写作 —— 因为这世界怎么帮助你的，你就想着要怎样回报</li>
-<li>你把全面和完整当作最高衡量标准，也用这个标准去克制、应对自己的注意力漂移</li>
-<li>你会不断自学新的手艺，因为你越来越理解单一技能的脆弱，越来越理解多项技能的综合威力</li>
-<li>你越来越依赖互联网，它是你最喜欢的 “书”，而 Google 是你最好的朋友—— 他总是能帮你找到更好的老师</li>
-<li>偶尔，你会学会没人教、没人带、甚至没书可参考的手艺，别人都说你 “悟性”高，可你自己清楚地知道那其实是怎么回事</li>
-<li>你越来越明白，其实没什么 “秘密”，越简单、越朴素的道理越值得重视</li>
-<li>你发现你用来思考的时间越来越多 —— 准确地讲，是 “琢磨”…… 只不过是因为你真会琢磨了 —— 你很清楚你应该花时间琢磨的是什么。</li>
-</ul>                    </article>
-                </aside><!-- /#featured -->
+</footer><!-- /.post-info -->                        <p>这是我的第一篇博客文章。</p>
+                        <a class="readmore" href="/wo-de-di-yi-pian-wen-zhang.html">read more</a>
+                    </div><!-- /.entry-content -->
+                </article></li>
+                    </ol><!-- /#posts-list -->
+                    </section><!-- /#content -->
                 <section id="extras" class="body">
                                 <div class="blogroll">
                                         <h2>links</h2>
